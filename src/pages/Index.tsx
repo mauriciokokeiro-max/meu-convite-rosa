@@ -9,30 +9,6 @@ const Index = () => {
       <section className="w-full max-w-[760px] animate-fade-in">
         <InviteSVG />
       </section>
-
-      {/* CTAs grandes para máxima intuitividade */}
-      <div className="mt-6 flex flex-col sm:flex-row gap-3 w-full max-w-md justify-center">
-        <Button asChild className="w-full sm:w-auto">
-          <a
-            href="https://noivos.casar.com/stephanie-e-mauricio#/one-page/_start"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Confirmar presença"
-          >
-            Confirmar presença
-          </a>
-        </Button>
-        <Button asChild variant="secondary" className="w-full sm:w-auto">
-          <a
-            href="https://listas.casasbahia.com.br/stephanieemauricio"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Abrir lista de presentes"
-          >
-            Lista de presentes
-          </a>
-        </Button>
-      </div>
     </main>
   );
 };
