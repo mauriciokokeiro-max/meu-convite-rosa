@@ -1,0 +1,12 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Caso o seu build gere a pasta "build", mude acima para:
+# publish = "build"
+
+# Redirecionamento para SPA (React Router, etc.)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
