@@ -1,88 +1,65 @@
 import React from "react";
 
-const INVITE_SRC = "/lovable-uploads/f2733be9-c56b-4c07-b3e2-701aec61af4d.png";
+const CLUSTER_SRC = "/lovable-uploads/c9f2e9f4-ccaf-45b2-9fdf-506a6427f414.png";
 
-// SVG totalmente responsivo que replica a composição do convite
-// - Recortes das flores (topo e base) a partir da imagem enviada
-// - Tipografia Cinzel/Cormorant
-// - Animações suaves nas flores e no monograma
-// - Links clicáveis dentro do cartão
+// SVG responsivo que replica o convite sem usar imagem de fundo.
+// Usa a flor recortada enviada para compor topo e base, com animações suaves.
 
-export const InviteSVG: React.FC = () => {
-  const width = 750; // base
-  const height = 1100; // base
-  const topClipH = 280;
-  const bottomClipY = 820;
-  const bottomClipH = height - bottomClipY;
+const InviteSVG: React.FC = () => {
+  const width = 750;
+  const height = 1100;
 
   return (
     <svg
       viewBox={`0 0 ${width} ${height}`}
       className="w-full h-auto shadow-elegant rounded-lg"
       role="img"
-      aria-label="Convite de casamento de Stephanie e Mauricio com flores rosas"
+      aria-label="Convite de casamento com flores rosé, nomes, monograma e informações"
     >
-      <defs>
-        <clipPath id="clipTop">
-          <rect x="0" y="0" width={width} height={topClipH} rx="8" />
-        </clipPath>
-        <clipPath id="clipBottom">
-          <rect x="0" y={bottomClipY} width={width} height={bottomClipH} rx="8" />
-        </clipPath>
-        <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
-          <feDropShadow dx="0" dy="8" stdDeviation="8" floodColor="hsl(338 22% 24% / 0.15)" />
-        </filter>
-      </defs>
-
       {/* Papel de fundo */}
-      <rect x="0" y="0" width={width} height={height} rx="16" fill="hsl(var(--background))" />
+      <rect x="0" y="0" width={width} height={height} rx="18" fill="hsl(var(--background))" />
 
-      {/* Cartão interno */}
-      <rect
-        x="36"
-        y="60"
-        width={width - 72}
-        height={height - 120}
-        rx="10"
-        fill="hsl(30 25% 98%)"
-        filter="url(#softShadow)"
-      />
+      {/* Cartão central (papel claro) */}
+      <rect x="36" y="60" width={width - 72} height={height - 120} rx="12" fill="hsl(30 25% 98%)" />
 
-      {/* Flores - topo (recorte) */}
-      <g clipPath="url(#clipTop)" className="animate-sway-slow">
-        <image href={INVITE_SRC} x="0" y="0" width={width} height={height} preserveAspectRatio="xMidYMid slice" />
+      {/* Flores topo esquerda */}
+      <g className="animate-sway-slow" opacity="0.98">
+        <image href={CLUSTER_SRC} x={-30} y={-10} width={360} height={360} preserveAspectRatio="xMidYMid meet" />
+      </g>
+      {/* Flores topo direita (espelhada) */}
+      <g className="animate-sway-slow" style={{ animationDelay: "-2s" as any }} transform={`translate(${width}) scale(-1,1)`} opacity="0.98">
+        <image href={CLUSTER_SRC} x={-330} y={-10} width={360} height={360} preserveAspectRatio="xMidYMid meet" />
       </g>
 
-      {/* Flores - base (recorte) */}
-      <g clipPath="url(#clipBottom)" className="animate-sway-slow" style={{ animationDelay: "-2s" as any }}>
-        <image href={INVITE_SRC} x="0" y="0" width={width} height={height} preserveAspectRatio="xMidYMid slice" />
+      {/* Flores base esquerda */}
+      <g className="animate-sway-slow" style={{ animationDelay: "-1s" as any }} opacity="0.98">
+        <image href={CLUSTER_SRC} x={-20} y={height - 330} width={360} height={360} preserveAspectRatio="xMidYMid meet" />
+      </g>
+      {/* Flores base direita (espelhada) */}
+      <g className="animate-sway-slow" style={{ animationDelay: "-3s" as any }} transform={`translate(${width}) scale(-1,1)`} opacity="0.98">
+        <image href={CLUSTER_SRC} x={-340} y={height - 330} width={360} height={360} preserveAspectRatio="xMidYMid meet" />
       </g>
 
       {/* Nomes superiores */}
-      <text x={width * 0.22} y={height * 0.24} textAnchor="middle" className="fill-current text-foreground" fontFamily="var(--font-body)" fontStyle="italic" fontSize="36">
+      <text x={width * 0.24} y={height * 0.23} textAnchor="middle" className="fill-current text-foreground" fontFamily="var(--font-body)" fontStyle="italic" fontSize="36">
         Stephanie
       </text>
-      <text x={width * 0.78} y={height * 0.24} textAnchor="middle" className="fill-current text-foreground" fontFamily="var(--font-body)" fontStyle="italic" fontSize="36">
+      <text x={width * 0.76} y={height * 0.23} textAnchor="middle" className="fill-current text-foreground" fontFamily="var(--font-body)" fontStyle="italic" fontSize="36">
         Mauricio
       </text>
 
-      {/* Monograma central animado */}
-      <g className="animate-breathe" aria-hidden="true">
-        <text
-          x={width / 2}
-          y={height * 0.38}
-          textAnchor="middle"
-          className="fill-current text-primary"
-          fontFamily="var(--font-heading)"
-          fontSize="170"
-          opacity="0.85"
-        >
-          SM
+      {/* Monograma fiel (duas letras sobrepostas e esguias) */}
+      <g className="animate-breathe" opacity="0.9">
+        <text x={width / 2 - 24} y={height * 0.38} textAnchor="middle" className="fill-current text-primary" fontFamily="var(--font-heading)" fontSize="180" fontWeight={500} letterSpacing="-0.05em">
+          S
+        </text>
+        <text x={width / 2 + 28} y={height * 0.39} textAnchor="middle" className="fill-current text-primary" fontFamily="var(--font-heading)" fontSize="185" fontWeight={500} letterSpacing="-0.06em">
+          M
         </text>
       </g>
 
       {/* Frase convite */}
-      <text x={width / 2} y={height * 0.44} textAnchor="middle" className="fill-current text-foreground" fontFamily="var(--font-body)" fontStyle="italic" fontSize="24">
+      <text x={width / 2} y={height * 0.445} textAnchor="middle" className="fill-current text-foreground" fontFamily="var(--font-body)" fontStyle="italic" fontSize="24">
         Convidam para a celebração de seu casamento
       </text>
 
@@ -93,7 +70,7 @@ export const InviteSVG: React.FC = () => {
         ♥
       </text>
 
-      {/* Data em destaque */}
+      {/* Data destacada */}
       <text x={width / 2} y={height * 0.54} textAnchor="middle" className="fill-current text-foreground" fontFamily="var(--font-heading)" fontSize="40">
         07 de março de 2026
       </text>
@@ -122,18 +99,6 @@ export const InviteSVG: React.FC = () => {
       <text x={width / 2} y={height * 0.764} textAnchor="middle" className="fill-current text-foreground" fontFamily="var(--font-body)" fontSize="16">
         ♥
       </text>
-
-      {/* Links no cartão (clicáveis) */}
-      <a href="https://noivos.casar.com/stephanie-e-mauricio#/one-page/_start" target="_blank" rel="noopener noreferrer">
-        <text x={width / 2} y={height * 0.80} textAnchor="middle" className="fill-current text-primary" fontFamily="var(--font-body)" fontSize="22" textDecoration="underline">
-          Presença
-        </text>
-      </a>
-      <a href="https://listas.casasbahia.com.br/stephanieemauricio" target="_blank" rel="noopener noreferrer">
-        <text x={width / 2} y={height * 0.84} textAnchor="middle" className="fill-current text-primary" fontFamily="var(--font-body)" fontSize="22" textDecoration="underline">
-          Lista de presente
-        </text>
-      </a>
     </svg>
   );
 };
